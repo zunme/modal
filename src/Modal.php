@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Reflector;
 use Illuminate\View\View;
 use Livewire\Component;
-use Livewire\Mechanisms\ComponentRegistry;
+//use Livewire\Mechanisms\ComponentRegistry;
 use ReflectionClass;
 
 class Modal extends Component
@@ -27,7 +27,8 @@ class Modal extends Component
     public function openModal($component, $arguments = [], $modalAttributes = []): void
     {
         $requiredInterface = \LivewireUI\Modal\Contracts\ModalComponent::class;
-        $componentClass = app(ComponentRegistry::class)->getClass($component);
+        //$componentClass = app(ComponentRegistry::class)->getClass($component);
+        $componentClass = app('livewire.finder')->resolveClassComponentClassName($component);
         $reflect = new ReflectionClass($componentClass);
 
         if ($reflect->implementsInterface($requiredInterface) === false) {
